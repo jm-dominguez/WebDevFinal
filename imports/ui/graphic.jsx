@@ -37,7 +37,7 @@ export default class Graphic extends Component {
                 
                 const svg = d3.select(this.svg);
                 svg.html("");
-                const minDate = d3.min(buses[1], d => d.date);
+                const minDate = d3.min(buses[0], d => d.date);
                 const maxDate = new Date(minDate.getTime() + 22*60*60*1000); // minDate + 24 hours
                 const x = d3.scaleTime()
                 .domain([ minDate, maxDate ])

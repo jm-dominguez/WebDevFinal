@@ -81,7 +81,7 @@ handleFrontClick(){
                 <div id="add-comment">
                     <div className="row">
                         <div className="col-sm-12">
-                            {(this.props.agency === "" && this.props.route ==="") ? <p className="warning">You need to be in a route to comment </p>
+                            {(this.props.agency === "" || this.props.route ==="") ? <p className="warning">You need to be in a route to comment </p>
                             :
                             <textarea name="textarea" rows="5" cols="45" ref="comentario" placeholder="Comment this route here"></textarea>
                             }
@@ -89,7 +89,7 @@ handleFrontClick(){
                     </div>
                     <div className="row">
                         <div className="col-sm-12">
-                            {(this.props.agency === "" & this.props.route ==="") ? "": <button type="button" className="btn btn-primary" onClick={this.handleCommentSubmit}>Send</button>}
+                            {(this.props.agency === "" || this.props.route ==="") ? "": <button type="button" className="btn btn-primary" onClick={this.handleCommentSubmit}>Send</button>}
                         </div>
                     </div>
                     <div className="row">

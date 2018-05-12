@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 export default class Comment extends Component {
   render() {
+    console.log(this.props);
     return (
       <div>
           <div className="card" width="100%">
