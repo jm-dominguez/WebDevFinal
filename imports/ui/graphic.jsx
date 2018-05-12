@@ -17,8 +17,10 @@ export default class Graphic extends Component {
     componentWillReceiveProps(nextProps){
         if(nextProps.info){
             let result = nextProps.info;
-            if(result.length === 0){
-
+            if(result.route === undefined || result.route.length === 0){
+                if(result.copyright){
+                    alert("There are no schedules for this route");
+                }
             }
             else{
                 

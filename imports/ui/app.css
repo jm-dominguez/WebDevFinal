@@ -7,15 +7,24 @@ button{
 label{
     margin-left: 15px;
 }
-#main-title, .step{
+#main-title, .step, #history-title{
     text-align: center;
     margin-top: 25px;
 }
 
-h1{
+h1, h2{
     font-family: 'Ovo', serif;
 }
 
 label{
     font-family: 'Muli', sans-serif;
+}
+
+input{
+    border-radius: 5px;
+}
+
+#hist{
+    border: 2px solid gray;
+    border-radius: 7px;
 }

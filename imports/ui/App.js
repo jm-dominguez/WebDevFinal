@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import * as d3 from "d3";
 import Graphic from "./graphic.jsx";
+import History from "./history.jsx";
+import AccountsUIWrapper from "./AccountsUiWrapper.jsx";
 import "./app.css";
 export default class App extends Component {
     constructor(props){
@@ -47,6 +49,7 @@ export default class App extends Component {
     handleRouteChange(e){
         let agency = this.refs.agencies.value;
         let route = this.refs.routes.value;
+        Meteor.call("insertSearch", agency, route);
         Meteor.call("getSchedule", agency, route, (err, result)=>{
             if(err){
                 return err;
@@ -84,6 +87,13 @@ export default class App extends Component {
             <div className = "col-sm-12">
                 <div id="main-title">
                     <h1>NextBus Schedule</h1>
+                </div>
+            </div>
+          </div>
+          <div className = "row">
+            <div className = "col-sm-2">
+                <div className="step">
+                    <AccountsUIWrapper />
                 </div>
             </div>
           </div>
@@ -130,6 +140,11 @@ export default class App extends Component {
             <div className="col-sm-10">
                 {this.state.info.lenght === 0 ? "": <Graphic ref="graphic" info={this.state.info}/>}
             </div>
+          </div>
+          <div className="row">
+                <div className="col-sm-6">
+                    <History/>
+                </div>
           </div>
       </div>
     )
