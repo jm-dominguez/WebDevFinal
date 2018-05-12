@@ -9,7 +9,40 @@ class Comments extends Component {
   constructor(props){
       super(props);
       this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
+      console.log(props);
+      Session.set({
+        commentsLimit: 5,
+        commentsPage: 0
+    })
+    this.handleBackClick = this.handleBackClick.bind(this);
+    this.handleFrontClick = this.handleFrontClick.bind(this);
   }
+  handleBackClick(){
+    let page = Session.get("commentsPage");
+    if(page === 0){
+        alert("you're already in the first page");
+    }
+    else{
+        page --;
+        Session.set({
+            commentsPage: page
+        });
+    }
+}
+handleFrontClick(){
+    let page = Session.get("commentsPage");
+    let limit = Session.get("commentsLimit");
+    let count = this.props.count;
+    if(page*limit >= count){
+        alert("you're already in the last page");
+    }
+    else{
+        page ++;
+        Session.set({
+            commentsPage: page
+        });
+    }
+}
 
   renderComments(){
       return this.props.comments.map((comment, i)=>(
@@ -27,7 +60,6 @@ class Comments extends Component {
       this.refs.comentario.value="";
   }
   render() {
-      console.log(this.props.comments);
     return (
       <div id="comm">
         <div className="row">
@@ -58,6 +90,18 @@ class Comments extends Component {
                             {this.renderComments()}
                         </div>
                     </div>
+                    <div className = "row">
+                        <div className="col-sm-6">
+                            <p id="history-back" onClick={this.handleBackClick}>
+                            &lt; &lt;
+                            </p> 
+                        </div>
+                        <div className="col-sm-6">
+                            <p id="history-next" onClick={this.handleFrontClick}>
+                            &gt; &gt;
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -68,8 +112,11 @@ class Comments extends Component {
 
 export default withTracker(() => {
     Meteor.subscribe("comments");
+    let pLimit = Session.get("commentsLimit");
+    let pPage = Session.get("commentsPage");
+    let skip = pLimit * pPage;
     return {
-      comments: Comentarios.find({}, {skip:0, limit: 3, sort: { createdAt: -1 }}).fetch(),
+      comments: Comentarios.find({}, {skip:skip, limit: pLimit, sort: { createdAt: -1 }}).fetch(),
       count: Comentarios.find({}).count(),
     };
   })(Comments);
