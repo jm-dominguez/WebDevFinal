@@ -7,7 +7,7 @@ button{
 label{
     margin-left: 15px;
 }
-#main-title, .step, #history-title{
+#main-title, .step, #history-title, #comments-title{
     text-align: center;
     margin-top: 25px;
 }
@@ -24,7 +24,12 @@ input{
     border-radius: 5px;
 }
 
-#hist{
+#hist,#comm{
     border: 2px solid gray;
     border-radius: 7px;
+}
+#history-back, #history-next{
+    font-size: 25px;
+    text-align: center;
+    cursor: pointer;
 }

@@ -3,6 +3,7 @@ import * as d3 from "d3";
 import Graphic from "./graphic.jsx";
 import History from "./history.jsx";
 import AccountsUIWrapper from "./AccountsUiWrapper.jsx";
+import Comments from "./comments.jsx";
 import "./app.css";
 export default class App extends Component {
     constructor(props){
@@ -41,6 +42,7 @@ export default class App extends Component {
                  return err;
              }
              else{
+                 console.log(result);
                  this.setState({routes: result.route});
              }
          });
@@ -144,6 +146,9 @@ export default class App extends Component {
           <div className="row">
                 <div className="col-sm-6">
                     <History/>
+                </div>
+                <div className="col-sm-6">
+                    <Comments/>
                 </div>
           </div>
       </div>
