@@ -16,7 +16,7 @@ Meteor.methods({
         check(agency, String);
         check(route, String);
 
-        let user = "unknown";
+        let user = {address: "unknown"};
         if(Meteor.user()){
             user = Meteor.user().emails[0];
         }

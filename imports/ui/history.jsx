@@ -2,9 +2,19 @@ import {Meteor} from "meteor/meteor";
 import React, { Component } from 'react'
 import "./app.css";
 import {Searchs} from  "../api/searchs.js";
+import HistoryElement from "./historyElement.jsx";
 import { withTracker } from 'meteor/react-meteor-data';
 
 class History extends Component {
+    constructor(props){
+        super(props);
+        this.renderElements = this.renderElements.bind(this);
+    }
+    renderElements(){
+        return this.props.searchs.map((search, i) => (
+            <HistoryElement search={search} key= {i} />
+        ));
+    }
   render() {
     console.log(this.props.searchs);
     return (
@@ -14,6 +24,11 @@ class History extends Component {
                 <div id="history-title">
                     <h2> Search History </h2>
                 </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-sm-12">
+                {this.renderElements()}
             </div>
           </div>
       </div>
