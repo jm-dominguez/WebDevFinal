@@ -8,7 +8,9 @@ export default class App extends Component {
         this.state = {
             agencies: [],
             routes: [],
-            info: []
+            info: [],
+            currentAgency: "",
+            currentRoute: ""
         }
         this.handleAgencyChange = this.handleAgencyChange.bind(this);
         this.handleRouteChange = this.handleRouteChange.bind(this);
@@ -50,9 +52,10 @@ export default class App extends Component {
                 return err;
             }
             else{
-                console.log(result);
                 this.setState({
-                    info: result
+                    info: result,
+                    currentAgency: agency,
+                    currentRoute: route
                 });
             }
         });
@@ -77,36 +80,48 @@ export default class App extends Component {
   render() {
     return (
       <div>
-          <h1>Parcial 2 </h1>
-          <div className="row">
-            <div className="col-sm-8">
-                <label>
-                    1. Please select your bus agency
-                    <input list="agencies" name="myAgencies" ref="agencies" />
-                    <datalist id="agencies" >
-                        {this.renderAgencies()}
-                    </datalist>
-                    <button type="button" className="btn btn-primary" onClick={this.handleAgencyChange}>OK</button>
-                </label>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-sm-8">
-            {this.state.routes.length === 0 ? "":
-            <label>
-            2. Please select your route
-            <input list="routes" name="myRoutes" ref="routes" />
-            <datalist id="routes" >
-                {this.renderRoutes()}
-            </datalist>
-            <button type="button" className="btn btn-primary" onClick={this.handleRouteChange}>Search</button>
-            </label>
-        }
+          <div className = "row">
+            <div className = "col-sm-12">
+                <div id="main-title">
+                    <h1>NextBus Schedule</h1>
+                </div>
             </div>
           </div>
           <div className="row">
             <div className="col-sm-12">
-            {this.state.routes.length === 0 ? "": <button type="button" className="btn btn-primary" onClick={this.handleReset}>Reset</button>}
+                <div className="step">
+                    <label>
+                        1. Please select your bus agency
+                        <input list="agencies" name="myAgencies" ref="agencies" />
+                        <datalist id="agencies" >
+                            {this.renderAgencies()}
+                        </datalist>
+                        <button type="button" className="btn btn-primary" onClick={this.handleAgencyChange}>OK</button>
+                    </label>
+                </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-sm-12">
+                <div className="step">
+                    {this.state.routes.length === 0 ? "":
+                    <label>
+                    2. Please select your route
+                    <input list="routes" name="myRoutes" ref="routes" />
+                    <datalist id="routes" >
+                        {this.renderRoutes()}
+                    </datalist>
+                    <button type="button" className="btn btn-primary" onClick={this.handleRouteChange}>Search</button>
+                    </label>
+                    }
+                </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-sm-12">
+                <div className="step">
+                    {this.state.routes.length === 0 ? "": <button type="button" className="btn btn-primary" onClick={this.handleReset}>Reset</button>}
+                </div>
             </div>
           </div>
           <div className="row">
