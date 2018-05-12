@@ -1,7 +1,33 @@
-import React, { Component } from 'react'
+import {Meteor} from "meteor/meteor";
+import { Session } from 'meteor/session';
+import React, { Component } from 'react';
+import {Comentarios} from  "../api/comments.js";
+import Comment from "./comment.jsx";
+import { withTracker } from 'meteor/react-meteor-data';
 
-export default class Comments extends Component {
+class Comments extends Component {
+  constructor(props){
+      super(props);
+      this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
+  }
+
+  renderComments(){
+      return this.props.comments.map((comment, i)=>(
+          <Comment comment={comment} key={i}/>
+      ));
+  }
+
+  handleCommentSubmit(){
+      let comentario = this.refs.comentario.value;
+        Meteor.call("addComment", this.props.agency, this.props.route, comentario, function(err, res){
+            if (err){
+                alert(err);
+            }
+        });
+      this.refs.comentario.value="";
+  }
   render() {
+      console.log(this.props.comments);
     return (
       <div id="comm">
         <div className="row">
@@ -10,8 +36,40 @@ export default class Comments extends Component {
                     <h2> Comments </h2>
                 </div>
             </div>
-          </div>
+        </div>
+        <div className="row">
+            <div className="col-sm-12">
+                <div id="add-comment">
+                    <div className="row">
+                        <div className="col-sm-12">
+                            {(this.props.agency === "" && this.props.route ==="") ? <p className="warning">You need to be in a route to comment </p>
+                            :
+                            <textarea name="textarea" rows="5" cols="45" ref="comentario" placeholder="Comment this route here"></textarea>
+                            }
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-sm-12">
+                            {(this.props.agency === "" & this.props.route ==="") ? "": <button type="button" className="btn btn-primary" onClick={this.handleCommentSubmit}>Send</button>}
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-sm-12">
+                            {this.renderComments()}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
       </div>
     )
   }
 }
+
+export default withTracker(() => {
+    Meteor.subscribe("comments");
+    return {
+      comments: Comentarios.find({}, {skip:0, limit: 3, sort: { createdAt: -1 }}).fetch(),
+      count: Comentarios.find({}).count(),
+    };
+  })(Comments);

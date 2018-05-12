@@ -29,10 +29,14 @@ export default class App extends Component {
 
     renderRoutes(){
         let routes = this.state.routes;
-        
-        return routes.map((ruta, i) => (
-            <option value = {ruta.tag} key = {i}/>
-        ));
+        try{
+            return routes.map((ruta, i) => (
+                <option value = {ruta.tag} key = {i}/>
+            ));
+        }catch(e){
+            alert("There was an error");
+        }
+        return "";
     }
 
     handleAgencyChange(e){
@@ -148,7 +152,7 @@ export default class App extends Component {
                     <History/>
                 </div>
                 <div className="col-sm-6">
-                    <Comments/>
+                    <Comments agency={this.state.currentAgency} route={this.state.currentRoute}/>
                 </div>
           </div>
       </div>

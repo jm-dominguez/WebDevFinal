@@ -12,11 +12,11 @@ label{
     margin-top: 25px;
 }
 
-h1, h2{
+h1, h2, h4{
     font-family: 'Ovo', serif;
 }
 
-label{
+label, .card{
     font-family: 'Muli', sans-serif;
 }
 
@@ -32,4 +32,12 @@ input{
     font-size: 25px;
     text-align: center;
     cursor: pointer;
+}
+
+#add-comment{
+    text-align: center;
+}
+
+.warning{
+    color: red;
 }
