@@ -47,7 +47,7 @@ export default class App extends Component {
              }
              else{
                  console.log(result);
-                 this.setState({routes: result.route});
+                 this.setState({routes: result.route, currentAgency: agency});
              }
          });
     }
@@ -76,7 +76,9 @@ export default class App extends Component {
         this.refs.agencies.value = "";
         this.setState({
             routes: [],
-            info: []
+            info: [],
+            currentAgency: "",
+            currentRoute: ""
         });
     }
     
@@ -93,6 +95,11 @@ export default class App extends Component {
             <div className = "col-sm-12">
                 <div id="main-title">
                     <h1>NextBus Schedule</h1>
+                </div>
+            </div>
+            <div className = "col-sm-12">
+                <div id="subtitle">
+                    <h4>Find the schedule of your favourite route and comment about it.</h4>
                 </div>
             </div>
           </div>

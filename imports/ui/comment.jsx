@@ -8,7 +8,12 @@ export default class Comment extends Component {
             <div className="card-body">
                 <h5 className="card-title"> <b>{this.props.comment.user.address} </b> said</h5>
                 <h6 className="card-subtitle mb-2 text-muted">{this.props.comment.createdAt.toString()}</h6>
-                <p className="card-text">{this.props.comment.comment}</p>
+                <p className="card-text">{this.props.comment.comment}
+                <br/>
+                  agency: {this.props.comment.agency}
+                <br/>
+                 route: {this.props.comment.route}
+                </p>
             </div>
         </div>
         

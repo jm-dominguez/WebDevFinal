@@ -9,13 +9,20 @@ class Comments extends Component {
   constructor(props){
       super(props);
       this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
-      console.log(props);
       Session.set({
         commentsLimit: 5,
-        commentsPage: 0
+        commentsPage: 0,
+        commentsAgency: props.agency,
+        commentsRoute: props.route
     })
     this.handleBackClick = this.handleBackClick.bind(this);
     this.handleFrontClick = this.handleFrontClick.bind(this);
+  }
+  componentWillReceiveProps(nextProps){
+    Session.set({
+        commentsAgency: nextProps.agency,
+        commentsRoute: nextProps.route
+    });
   }
   handleBackClick(){
     let page = Session.get("commentsPage");
@@ -115,8 +122,24 @@ export default withTracker(() => {
     let pLimit = Session.get("commentsLimit");
     let pPage = Session.get("commentsPage");
     let skip = pLimit * pPage;
-    return {
-      comments: Comentarios.find({}, {skip:skip, limit: pLimit, sort: { createdAt: -1 }}).fetch(),
-      count: Comentarios.find({}).count(),
-    };
+    let agency = Session.get("commentsAgency");
+    let routes = Session.get("commentsRoute");
+    if(agency === "" && routes === ""){
+        return {
+            comments: Comentarios.find({}, {skip:skip, limit: pLimit, sort: { createdAt: -1 }}).fetch(),
+            count: Comentarios.find({}).count(),
+          };
+    }
+    else if(agency !== ""){
+        return {
+            comments: Comentarios.find({agency: agency}, {skip:skip, limit: pLimit, sort: { createdAt: -1 }}).fetch(),
+            count: Comentarios.find({agency: agency}).count(),
+          };   
+    }
+    else{
+        return {
+            comments: Comentarios.find({agency: agency, route: routes}, {skip:skip, limit: pLimit, sort: { createdAt: -1 }}).fetch(),
+            count: Comentarios.find({agency: agency}).count(),
+          };
+    }
   })(Comments);

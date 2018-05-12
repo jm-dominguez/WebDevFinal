@@ -49,7 +49,6 @@ class History extends Component {
         }
     }
   render() {
-    console.log(this.props.searchs);
     return (
       <div id="hist">
           <div className="row">
