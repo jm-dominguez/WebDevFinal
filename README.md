@@ -58,6 +58,9 @@ The bug I found was that in the code provided by the professor, the width attrib
 
 There was a second bug in the code. When defining the D3 scale, the professor was selecting the minimun date using buses[1]. But, the bus that starts operating the earliest time is really the bus in the 0 position. So, to correct the bug I just changed the position of the bus from 1 to 0;
 
+##Creative Component
+As my creative component, I added the option to add emojis to the comments and give them votes, similar to what Slack does. This was implemented using the react-emoji-render package that is avaliable in NPM. To add a emoji the user just needs to write a emoji in this format: :angry:, inside the input that is located id the comment. Then, they click on the + button and the emoji should be added to the comment. Finally, to vote for a emoji, you just need to click on the emoji logo. 
+
 ## Authors
 
 * **Juan Manuel Dominguez** - *Initial work* - [Juan Dominguez](https://jm-dominguez.github.io/)
